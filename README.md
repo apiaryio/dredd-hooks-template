@@ -2,7 +2,7 @@
 
 Language agnostic CLI test suite for boilerplating [Dredd hooks](https://github.com/apiaryio/dredd) handler in new language written in [Aruba](https://github.com/cucumber/aruba)
 
-Usage:
+## Usage
 
 0. Install:
 ```

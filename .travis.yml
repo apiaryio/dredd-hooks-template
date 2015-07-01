@@ -1,6 +1,6 @@
 before_install:
+  - npm install -g dredd
   - bundle install
 
 script:
   - bundle exec cucumber
- 
