@@ -39,5 +39,5 @@ Feature: Failing a transacstion
     Then the exit status should be 1
     And the output should contain:
       """
-      'Yay! Failed!'
+      Yay! Failed!
       """
