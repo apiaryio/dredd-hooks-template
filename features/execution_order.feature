@@ -25,10 +25,10 @@ Feature: Execution order
       """
       ## Implement following in your language utilizing each hook declaring function
       ## from API in your language:
-      ## - craete an array under  `hooks_modifications` key in transaction object if it doesn't exits
+      ## - create an array under  `hooks_modifications` key in transaction object if it doesn't exits
       ## - push to this array string with type of hook + "modification" e.g. "after modification"
       ##
-      ## So, replace following pseudcode with yours:
+      ## So, replace following pseudo code with yours:
       #
       #require 'mylanguagehooks'
       #

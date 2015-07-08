@@ -27,7 +27,7 @@ Feature: Hook handlers
       ## from API in your language:
       ## - write to standard output name of hook + "hook handled" e.g: "after hook handled"
       ##
-      ## So, replace following pseudcode with yours:
+      ## So, replace following pseudo code with yours:
       #
       #require 'mylanguagehooks'
       #
