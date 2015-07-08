@@ -1,4 +1,4 @@
-Feature: Failing a transacstion
+Feature: Failing a transaction
 
   Background:
     Given I have "dredd-hooks-{{mylanguage}}" command installed
@@ -23,10 +23,10 @@ Feature: Failing a transacstion
   Scenario:
     Given a file named "hookfile.{{myextension}}" with:
       """
-      ## Implement before hook failing the tranasction by setting string 'Yay! Failed!' as value of key 'fail'
+      ## Implement before hook failing the transaction by setting string 'Yay! Failed!' as value of key 'fail'
       ## in the transaction object
       ##
-      ## So, replace following pseudcode with yours:
+      ## So, replace following pseudo code with yours:
       #
       #require 'mylanguagehooks'
       #

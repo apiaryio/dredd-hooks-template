@@ -1,4 +1,4 @@
-Feature: Multiple hookfiles with a glob
+Feature: Multiple hook files with a glob
 
   Background:
     Given I have "dredd-hooks-{{mylanguage}}" command installed
@@ -25,7 +25,7 @@ Feature: Multiple hookfiles with a glob
       """
       ## Implement before hook writing to standard output text: "It's me, File1"
       ##
-      ## So, replace following pseudcode with yours:
+      ## So, replace following pseudo code with yours:
       #
       #require 'mylanguagehooks'
       #
@@ -38,7 +38,7 @@ Feature: Multiple hookfiles with a glob
       """
       ## Implement before hook writing to standard output text: "It's me, File2"
       ##
-      ## So, replace following pseudcode with yours:
+      ## So, replace following pseudo code with yours:
       #
       #require 'mylanguagehooks'
       #
@@ -51,7 +51,7 @@ Feature: Multiple hookfiles with a glob
       """
       ## Implement before hook writing to standard output text: "It's me, File3"
       ##
-      ## So, replace following pseudcode with yours:
+      ## So, replace following pseudo code with yours:
       #
       #require 'mylanguagehooks'
       #
@@ -60,7 +60,7 @@ Feature: Multiple hookfiles with a glob
       #}
       #
       """
-    When I run `dredd ./apiary.apib http://localhost:4567 --server "ruby server.rb" --language redd-hooks-{{mylanguage}} --hookfiles ./hookfile1.{{myextension}} --hookfiles ./hookfile2.v --hookfiles ./hookfile_*.{{myextension}}`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server "ruby server.rb" --language dredd-hooks-{{mylanguage}} --hookfiles ./hookfile1.{{myextension}} --hookfiles ./hookfile2.v --hookfiles ./hookfile_*.{{myextension}}`
     Then the exit status should be 0
     And the output should contain:
       """
