@@ -66,7 +66,7 @@ Feature: Hook handlers
 
     When I run `dredd ./apiary.apib http://localhost:4567 --server "ruby server.rb" --language dredd-hooks-{{mylanguage}} --hookfiles ./hookfile.{{myextension}}`
     Then the exit status should be 0
-    Then the output should contain:
+    And the output should contain:
       """
       before hook handled
       """
