@@ -1,0 +1,14 @@
+{
+  "no-dupe-feature-names": "on",
+  "no-dupe-scenario-names": "on",
+  "no-empty-file": "on",
+  "no-files-without-scenarios": "on",
+  "no-multiple-empty-lines": "on",
+  "no-partially-commented-tag-lines": "on",
+  "no-trailing-spaces": "on",
+  "no-unnamed-features": "on",
+  "no-unnamed-scenarios": "off",
+  "new-line-at-eof": ["on", "yes"],
+  "no-scenario-outlines-without-examples": "on",
+  "use-and": "on"
+}
