@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gonzalo-bulnes/dredd-hooks-template.git"
+    "url": "git+https://github.com/apiaryio/dredd-hooks-template.git"
   },
   "keywords": [
     "Dredd",
@@ -24,8 +24,8 @@
   "author": "Apiary",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gonzalo-bulnes/dredd-hooks-template/issues"
+    "url": "https://github.com/apiaryio/dredd-hooks-template/issues"
   },
-  "homepage": "https://github.com/gonzalo-bulnes/dredd-hooks-template#readme",
+  "homepage": "https://github.com/apiaryio/dredd-hooks-template#readme",
   "private": true
 }
