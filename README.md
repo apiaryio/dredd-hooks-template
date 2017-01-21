@@ -26,4 +26,4 @@ bundle install
 $ bundle exec cucumber
 ```
 
-5. Make `bundle exec cucumber` part of your test suite and CI
+5. Make `bundle exec cucumber` part of your test suite and CI (see `.travis.example.yml`)
