@@ -1,0 +1,31 @@
+{
+  "name": "dredd-hooks-template",
+  "version": "1.0.0",
+  "description": "A meta-package to install the testing dependencies of the Dredd Hooks template test suite.",
+  "main": "",
+  "dependencies": {
+    "gherkin-lint": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apiaryio/dredd-hooks-template.git"
+  },
+  "keywords": [
+    "Dredd",
+    "hooks",
+    "Cucumber",
+    "test suite",
+    "Aruba"
+  ],
+  "author": "Apiary",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apiaryio/dredd-hooks-template/issues"
+  },
+  "homepage": "https://github.com/apiaryio/dredd-hooks-template#readme",
+  "private": true
+}

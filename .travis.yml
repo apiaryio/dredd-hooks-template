@@ -1,6 +1,6 @@
-before_install:
-  - npm install -g dredd
-  - bundle install
+language: node_js
+before_script:
+  - npm install
 
 script:
-  - bundle exec cucumber
+  - echo "Validating feature files syntax..."  && ./node_modules/gherkin-lint/src/main.js features/
