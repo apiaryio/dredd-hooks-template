@@ -34,7 +34,7 @@ Feature: Failing a transaction
       #}
       #
       """
-    When I run `dredd ./apiary.apib http://localhost:4567 --server "ruby server.rb" --language "dredd-hooks-{{mylanguage}}" --hookfiles ./hookfile.{{myextension}}`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server="ruby server.rb" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile.{{myextension}}`
     Then the exit status should be 1
     And the output should contain:
       """

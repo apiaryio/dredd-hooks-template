@@ -59,7 +59,7 @@ Feature: Multiple hook files with a glob
       #}
       #
       """
-    When I run `dredd ./apiary.apib http://localhost:4567 --server "ruby server.rb" --language dredd-hooks-{{mylanguage}} --hookfiles ./hookfile1.{{myextension}} --hookfiles ./hookfile2.v --hookfiles ./hookfile_*.{{myextension}}`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server="ruby server.rb" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile1.{{myextension}} --hookfiles=./hookfile2.v --hookfiles=./hookfile_*.{{myextension}}`
     Then the exit status should be 0
     And the output should contain:
       """
