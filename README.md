@@ -1,11 +1,13 @@
-# Dredd Cross Language Hooks Test Suite
+# Cross-Language Test Suite for Dredd Hooks
 
 [![Build Status](https://travis-ci.org/apiaryio/dredd-hooks-template.svg?branch=master)](https://travis-ci.org/apiaryio/dredd-hooks-template)
 
-Language agnostic CLI test suite for boilerplating [Dredd hooks][dredd] handler in new language written in [Aruba][aruba].
+Language-agnostic BDD test suite for boilerplating implementation of [Dredd][] [hooks][] handler for a new language. It tests the public interface of the hooks handler and ensures it will work as Dredd expects. It's written in [Gherkin][] and ran by [Aruba][].
 
-  [aruba]: https://github.com/cucumber/aruba
-  [dredd]: https://github.com/apiaryio/dredd
+  [Aruba]: https://github.com/cucumber/aruba
+  [Gherkin]: https://github.com/cucumber/cucumber/wiki/Gherkin
+  [Dredd]: https://github.com/apiaryio/dredd
+  [hooks]: https://dredd.readthedocs.io/en/latest/hooks/
 
 ## Usage
 
@@ -50,7 +52,7 @@ The feature files syntax is validated automatically. To perform the validation l
 npm install
 
 # Run the linter
-./node_modules/gherkin-lint/src/main.js features/
+npm test
 ```
 
 ## Examples
