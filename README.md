@@ -43,6 +43,12 @@ Finally, make `bundle exec cucumber` part of your test suite and CI (see `.travi
 
   [travis]: https://travis-ci.org
 
+## Maintenance
+
+Updating Aruba regularly is not absolutely critical, but helps making sure that all Dredd hooks implementations behave the same.
+
+In order to update your installation and ensure the same version is used accross all your environments, run `bundle update aruba` from time to time and commit the corresponding `Gemfile.lock` as part of the update.
+
 ## Development
 
 The feature files syntax is validated automatically. To perform the validation locally:
