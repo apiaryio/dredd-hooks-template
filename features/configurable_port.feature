@@ -1,7 +1,7 @@
 Feature: Configurable port
 
   Background:
-    Given I have "dredd-hooks-php" command installed
+    Given I have "dredd-hooks-{{mylanguage}}" command installed
     And I have "dredd" command installed
     And a file named "server.rb" with:
       """
