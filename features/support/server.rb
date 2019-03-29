@@ -1,5 +1,5 @@
 require 'sinatra'
 
 get '/message' do
-  "Hello World!"
+  "Hello World!\n"
 end

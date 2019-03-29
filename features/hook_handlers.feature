@@ -7,7 +7,7 @@ Feature: Hook handlers
       """
       require 'sinatra'
       get '/message' do
-        "Hello World!\n\n"
+        "Hello World!\n"
       end
       """
 
@@ -16,7 +16,8 @@ Feature: Hook handlers
       # My Api
       ## GET /message
       + Response 200 (text/html;charset=utf-8)
-          Hello World!
+
+              Hello World!
       """
 
   Scenario:
@@ -28,43 +29,42 @@ Feature: Hook handlers
       ##
       ## So, replace following pseudo code with yours:
       #
-      #require 'mylanguagehooks'
+      #import hooks
       #
-      #before("/message > GET") { |transaction|
-      #  echo "before hook handled"
-      #}
+      #@hooks.before('/message > GET')
+      #def before(transaction):
+      #    print('before hook handled')
       #
-      #after("/message > GET") { |transaction|
-      #  echo "after hook handled"
-      #}
+      #@hooks.after('/message > GET')
+      #def after(transaction):
+      #    print('after hook handled')
       #
-      #before_validation("/message > GET") { |transaction|
-      #  echo "before validation hook handled"
-      #}
+      #@hooks.before_validation('/message > GET')
+      #def before_validation(transaction):
+      #    print('before validation hook handled')
       #
-      #before_all { |transaction|
-      #  echo "before all hook handled"
-      #}
+      #@hooks.before_all
+      #def before_all(transaction):
+      #    print('before all hook handled')
       #
-      #after_all { |transaction|
-      #  echo "after all hook handled"
-      #}
+      #@hooks.after_all
+      #def after_all(transaction):
+      #    print('after all hook handled')
       #
-      #before_each { |transaction|
-      #  echo "before each hook handled"
-      #}
+      #@hooks.before_each
+      #def before_each(transaction):
+      #    print('before each hook handled')
       #
-      #before_each_validation { |transaction|
-      #  echo "before each validation hook handled"
-      #}
-
-      #after_each { |transaction|
-      #  echo "after each hook handled"
-      #}
-
+      #@hooks.before_each_validation
+      #def before_each_validation(transaction):
+      #    print('before each validation hook handled')
+      #
+      #@hooks.after_each
+      #def after_each(transaction):
+      #    print('after each hook handled')
       """
 
-    When I run `dredd ./apiary.apib http://localhost:4567 --server="ruby server.rb" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile.{{myextension}}`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server="ruby server.rb" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile.{{myextension}} --loglevel=debug`
     Then the exit status should be 0
     And the output should contain:
       """

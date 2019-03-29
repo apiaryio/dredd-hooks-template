@@ -7,7 +7,7 @@ Feature: Failing a transaction
       """
       require 'sinatra'
       get '/message' do
-        "Hello World!\n\n"
+        "Hello World!\n"
       end
       """
 
@@ -16,7 +16,8 @@ Feature: Failing a transaction
       # My Api
       ## GET /message
       + Response 200 (text/html;charset=utf-8)
-          Hello World!
+
+              Hello World!
       """
 
   Scenario:
@@ -27,14 +28,13 @@ Feature: Failing a transaction
       ##
       ## So, replace following pseudo code with yours:
       #
-      #require 'mylanguagehooks'
+      #import hooks
       #
-      #before("/message > GET") { |transaction|
-      #  transaction['fail'] == 'Yay! Failed!'
-      #}
-      #
+      #@hooks.before('/message > GET')
+      #def before(transaction):
+      #    transaction['fail'] = 'Yay! Failed!'
       """
-    When I run `dredd ./apiary.apib http://localhost:4567 --server="ruby server.rb" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile.{{myextension}}`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server="ruby server.rb" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile.{{myextension}} --loglevel=debug`
     Then the exit status should be 1
     And the output should contain:
       """
