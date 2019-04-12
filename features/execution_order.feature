@@ -3,19 +3,23 @@ Feature: Execution order
   Background:
     Given I have "dredd-hooks-{{mylanguage}}" command installed
     And I have "dredd" command installed
-    And a file named "server.rb" with:
+    And a file named "server.js" with:
       """
-      require 'sinatra'
-      get '/message' do
-        "Hello World!\n"
-      end
+      require('http')
+        .createServer((req, res) => {
+          if (req.url === '/message') {
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end('Hello World!\n');
+          }
+        })
+        .listen(4567);
       """
 
     And a file named "apiary.apib" with:
       """
       # My Api
       ## GET /message
-      + Response 200 (text/html;charset=utf-8)
+      + Response 200 (text/plain)
 
               Hello World!
       """
@@ -78,7 +82,7 @@ Feature: Execution order
       | variable                       | value      |
       | TEST_DREDD_HOOKS_HANDLER_ORDER | true       |
 
-    When I run `dredd ./apiary.apib http://localhost:4567 --server="ruby server.rb" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile.{{myextension}} --loglevel=debug`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server="node server.js" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile.{{myextension}} --loglevel=debug`
     Then the exit status should be 0
     And the output should contain:
       """
