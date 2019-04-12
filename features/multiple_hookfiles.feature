@@ -7,7 +7,7 @@ Feature: Multiple hook files with a glob
       """
       require 'sinatra'
       get '/message' do
-        "Hello World!\n\n"
+        "Hello World!\n"
       end
       """
 
@@ -16,7 +16,8 @@ Feature: Multiple hook files with a glob
       # My Api
       ## GET /message
       + Response 200 (text/html;charset=utf-8)
-          Hello World!
+
+              Hello World!
       """
 
   Scenario:
@@ -26,12 +27,11 @@ Feature: Multiple hook files with a glob
       ##
       ## So, replace following pseudo code with yours:
       #
-      #require 'mylanguagehooks'
+      #import hooks
       #
-      #before("/message > GET") { |transaction|
-      #  echo "It's me, File1"
-      #}
-      #
+      #@hooks.before('/message > GET')
+      #def before(transaction):
+      #    print("It's me, File1")
       """
     And a file named "hookfile2.{{myextension}}" with:
       """
@@ -39,27 +39,25 @@ Feature: Multiple hook files with a glob
       ##
       ## So, replace following pseudo code with yours:
       #
-      #require 'mylanguagehooks'
+      #import hooks
       #
-      #before("/message > GET") { |transaction|
-      #  echo "It's me, File2"
-      #}
-      #
+      #@hooks.before('/message > GET')
+      #def before(transaction):
+      #    print("It's me, File2")
       """
-    And a file named "hookfile_to_be_globed.{{myextension}}" with:
+    And a file named "hookfile_glob.{{myextension}}" with:
       """
       ## Implement before hook writing to standard output text: "It's me, File3"
       ##
       ## So, replace following pseudo code with yours:
       #
-      #require 'mylanguagehooks'
+      #import hooks
       #
-      #before("/message > GET") { |transaction|
-      #  echo "It's me, File3"
-      #}
-      #
+      #@hooks.before('/message > GET')
+      #def before(transaction):
+      #    print("It's me, File3")
       """
-    When I run `dredd ./apiary.apib http://localhost:4567 --server="ruby server.rb" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile1.{{myextension}} --hookfiles=./hookfile2.v --hookfiles=./hookfile_*.{{myextension}}`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server="ruby server.rb" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile1.{{myextension}} --hookfiles=./hookfile2.{{myextension}} --hookfiles=./hookfile_*.{{myextension}} --loglevel=debug`
     Then the exit status should be 0
     And the output should contain:
       """

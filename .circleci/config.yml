@@ -1,10 +1,43 @@
 version: 2
 jobs:
-  build:
+  lint-features:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
     steps:
       - checkout
       - run: npm install
-      - run: npm test
+      - run: npm run lint:features
+
+  test-with-python-hooks:
+    docker:
+      - image: circleci/ruby:2.6-node
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install dev dependencies (Node.js)
+          command: npm install
+      - run:
+          name: Install the BDD test suite dependencies (Ruby)
+          command: bundle install
+      - run:
+          name: Install the reference hooks implementation (Python)
+          command: |
+            curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+            sudo python get-pip.py
+            sudo pip install dredd_hooks
+      - run:
+          name: Test
+          command: |
+            node scripts/prepare-test.js
+            export PATH=$PATH:$(pwd)/node_modules/.bin
+            cd ./test
+            bundle exec cucumber
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - lint-features
+      - test-with-python-hooks

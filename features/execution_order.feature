@@ -7,7 +7,7 @@ Feature: Execution order
       """
       require 'sinatra'
       get '/message' do
-        "Hello World!\n\n"
+        "Hello World!\n"
       end
       """
 
@@ -16,7 +16,8 @@ Feature: Execution order
       # My Api
       ## GET /message
       + Response 200 (text/html;charset=utf-8)
-          Hello World!
+
+              Hello World!
       """
 
   Scenario:
@@ -29,56 +30,55 @@ Feature: Execution order
       ##
       ## So, replace following pseudo code with yours:
       #
-      #require 'mylanguagehooks'
+      #import hooks
       #
       #key = 'hooks_modifications'
       #
-      #before("/message > GET") { |transaction|
-      #  if(!transaction[key]?){ transaction[key] = [] }
-      #  transaction[key].push "before modification"
-      #}
+      #@hooks.before('/message > GET')
+      #def before(transaction):
+      #    transaction.setdefault(key, [])
+      #    transaction[key].append('before modification')
       #
-      #after("/message > GET") { |transaction|
-      #  if(!transaction[key]?){ transaction[key] = [] }
-      #  transaction[key].push "after modification"
-      #}
+      #@hooks.after('/message > GET')
+      #def after(transaction):
+      #    transaction.setdefault(key, [])
+      #    transaction[key].append('after modification')
       #
-      #before_validation("/message > GET") { |transaction|
-      #  if(!transaction[key]?){ transaction[key] = [] }
-      #  transaction[key].push "before validation modification"
-      #}
+      #@hooks.before_validation('/message > GET')
+      #def before_validation(transaction):
+      #    transaction.setdefault(key, [])
+      #    transaction[key].append('before validation modification')
       #
-      #before_all { |transaction|
-      #  if(!transaction[key]?){ transaction[key] = [] }
-      #  transaction[0][key].push "before all modification"
-      #}
+      #@hooks.before_all
+      #def before_all(transactions):
+      #    transactions[0].setdefault(key, [])
+      #    transactions[0][key].append('before all modification')
       #
-      #after_all { |transaction|
-      #  if(!transaction[key]?){ transaction[key] = [] }
-      #  transaction[0][key].push "after all modification"
-      #}
+      #@hooks.after_all
+      #def after_all(transactions):
+      #    transactions[0].setdefault(key, [])
+      #    transactions[0][key].append('after all modification')
       #
-      #before_each { |transaction|
-      #  if(!transaction[key]?){ transaction[key] = [] }
-      #  transaction[key].push "before each modification"
-      #}
+      #@hooks.before_each
+      #def before_each(transaction):
+      #    transaction.setdefault(key, [])
+      #    transaction[key].append('before each modification')
       #
-      #before_each_validation { |transaction|
-      #  if(!transaction[key]?){ transaction[key] = [] }
-      #  transaction[key].push "before each validation modification"
-      #}
+      #@hooks.before_each_validation
+      #def before_each_validation(transaction):
+      #    transaction.setdefault(key, [])
+      #    transaction[key].append('before each validation modification')
       #
-      #after_each { |transaction|
-      #  if(!transaction[key]?){ transaction[key] = [] }
-      #  transaction[key].push "after each modification"
-      #}
-
+      #@hooks.after_each
+      #def after_each(transaction):
+      #    transaction.setdefault(key, [])
+      #    transaction[key].append('after each modification')
       """
     And I set the environment variables to:
       | variable                       | value      |
       | TEST_DREDD_HOOKS_HANDLER_ORDER | true       |
 
-    When I run `dredd ./apiary.apib http://localhost:4567 --server="ruby server.rb" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile.{{myextension}}`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server="ruby server.rb" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile.{{myextension}} --loglevel=debug`
     Then the exit status should be 0
     And the output should contain:
       """
