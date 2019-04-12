@@ -1,6 +1,6 @@
 # Cross-Language Test Suite for Dredd Hooks
 
-[![Build Status](https://travis-ci.org/apiaryio/dredd-hooks-template.svg?branch=master)](https://travis-ci.org/apiaryio/dredd-hooks-template)
+[![Build Status](https://travis-ci.org/apiaryio/dredd-hooks-template.svg?branch=master)](https://travis-ci.org/apiaryio/dredd-hooks-template) [![Greenkeeper badge](https://badges.greenkeeper.io/apiaryio/dredd-hooks-template.svg)](https://greenkeeper.io/)
 
 Language-agnostic BDD test suite for boilerplating implementation of [Dredd][] [hooks][] handler for a new language. It tests the public interface of the hooks handler and ensures it will work as Dredd expects. It's written in [Gherkin][] and ran by [Aruba][].
 
