@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A meta-package to install the testing dependencies of the Dredd Hooks template test suite",
   "devDependencies": {
-    "gherkin-lint": "3.0.2"
+    "gherkin-lint": "3.0.3"
   },
   "scripts": {
     "test": "gherkin-lint features/"
