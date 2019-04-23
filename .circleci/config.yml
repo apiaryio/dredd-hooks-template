@@ -27,7 +27,7 @@ jobs:
             node scripts/prepare-test.js
             export PATH=$PATH:$(pwd)/node_modules/.bin
             cd ./test
-            npm test
+            cucumber-js features
 
 workflows:
   version: 2
