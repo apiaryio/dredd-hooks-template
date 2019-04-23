@@ -11,7 +11,7 @@ jobs:
 
   test-with-python-hooks:
     docker:
-      - image: circleci/ruby:2.6-node
+      - image: circleci/python:3.7-node
     working_directory: ~/repo
     steps:
       - checkout
@@ -19,21 +19,15 @@ jobs:
           name: Install dev dependencies (Node.js)
           command: npm install
       - run:
-          name: Install the BDD test suite dependencies (Ruby)
-          command: bundle install
-      - run:
           name: Install the reference hooks implementation (Python)
-          command: |
-            curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-            sudo python get-pip.py
-            sudo pip install dredd_hooks
+          command: sudo pip install dredd_hooks
       - run:
           name: Test
           command: |
             node scripts/prepare-test.js
             export PATH=$PATH:$(pwd)/node_modules/.bin
             cd ./test
-            bundle exec cucumber
+            npm test
 
 workflows:
   version: 2
