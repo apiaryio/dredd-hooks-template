@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A meta-package to install the testing dependencies of the Dredd Hooks template test suite",
   "devDependencies": {
-    "dredd": "8.0.6",
+    "dredd": "9.0.5",
     "fs-extra": "7.0.1",
     "gherkin-lint": "3.0.3",
     "glob": "7.1.3"
