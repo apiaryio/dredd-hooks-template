@@ -1,9 +1,10 @@
 const fs = require('fs-extra');
 const path = require('path');
 const glob = require('glob');
+const { spawnSync } = require('child_process');
 
 
-const PROJECT_DIR = path.join(__dirname, '..')
+const PROJECT_DIR = path.join(__dirname, '..');
 const TEST_DIR = path.join(PROJECT_DIR, 'test');
 
 
@@ -45,3 +46,11 @@ glob.sync(path.join(TEST_DIR, '**/*.feature')).forEach((featurePath) => {
   const modifiedContent = uncommentPythonCodeBlocks(replacePlaceholders(content));
   fs.writeFileSync(featurePath, modifiedContent, { encoding: 'utf-8' });
 })
+
+const binDir = path.join(PROJECT_DIR, 'node_modules', '.bin');
+const featuresDir = path.join(TEST_DIR, 'features');
+
+const PATH = process.env.PATH.split(path.delimiter).concat([binDir]).join(path.delimiter);
+const env = { ...process.env, PATH };
+
+spawnSync('cucumber-js', [featuresDir], { cwd: TEST_DIR, env, stdio: 'inherit' });

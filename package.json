@@ -2,14 +2,22 @@
   "name": "dredd-hooks-template",
   "version": "1.0.0",
   "description": "A meta-package to install the testing dependencies of the Dredd Hooks template test suite",
+  "engines": {
+    "node": ">=8"
+  },
   "devDependencies": {
+    "chai": "4.2.0",
+    "cucumber": "5.1.0",
     "dredd": "9.0.5",
     "fs-extra": "7.0.1",
     "gherkin-lint": "3.0.3",
-    "glob": "7.1.3"
+    "glob": "7.1.3",
+    "tree-kill": "1.2.1",
+    "which": "1.3.1"
   },
   "scripts": {
-    "lint:features": "gherkin-lint features/"
+    "test": "node scripts/test.js",
+    "lint": "gherkin-lint features/"
   },
   "repository": {
     "type": "git",
