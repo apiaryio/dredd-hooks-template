@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A meta-package to install the testing dependencies of the Dredd Hooks template test suite",
   "engines": {
-    "node": ">=10"
+    "node": ">=8"
   },
   "devDependencies": {
     "chai": "4.2.0",
