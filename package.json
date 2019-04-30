@@ -8,7 +8,7 @@
   "devDependencies": {
     "chai": "4.2.0",
     "cucumber": "5.1.0",
-    "dredd": "9.0.5",
+    "dredd": "10.0.0",
     "fs-extra": "7.0.1",
     "gherkin-lint": "3.0.3",
     "glob": "7.1.3",
