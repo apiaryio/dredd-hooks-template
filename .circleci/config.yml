@@ -16,7 +16,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install dev dependencies (Node.js)
+          name: Install dependencies (Node.js)
           command: npm install
       - run:
           name: Install the reference hooks implementation (Python)
