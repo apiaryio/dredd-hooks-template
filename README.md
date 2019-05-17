@@ -10,7 +10,7 @@ First read the docs about [how to create a new hooks handler](http://dredd.org/e
 
 ### Installation
 
-1.  Make sure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/package/npm) available.
+1.  Make sure you have [Node.js](https://nodejs.org/) (ideally version 10 or higher) and [npm](https://www.npmjs.com/package/npm) available.
 1.  Create a `package.json` file in the root of your project. This is where your JavaScript dependencies are going to be specified:
 
     ```json
@@ -42,7 +42,7 @@ You should add the `package.json` file to Git. When starting from scratch, you c
 
 ### Upgrading
 
-Watch for newer versions of the [dredd-hooks-template package](https://www.npmjs.com/package/dredd-hooks-template) and upgrade regularly to keep up with development of Dredd and the test suite itself. To upgrade, run:
+[Watch for newer versions](https://github.com/apiaryio/dredd-hooks-template/releases) of the [dredd-hooks-template package](https://www.npmjs.com/package/dredd-hooks-template) and upgrade regularly to keep up with development of Dredd and the test suite itself. To upgrade, run:
 
 ```
 $ npx dredd-hooks-template upgrade
