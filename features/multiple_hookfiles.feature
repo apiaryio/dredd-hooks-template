@@ -1,7 +1,7 @@
 Feature: Multiple hook files with a glob
 
   Background:
-    Given I have "dredd-hooks-{{mylanguage}}" command installed
+    Given I have "{{my-executable-path}}" command installed
     And I have "dredd" command installed
     And a file named "server.js" with:
       """
@@ -28,7 +28,7 @@ Feature: Multiple hook files with a glob
       """
 
   Scenario:
-    Given a file named "hookfile1.{{myextension}}" with:
+    Given a file named "hookfile1.{{my-extension}}" with:
       """
       ## Implement before hook writing to standard output text: "It's me, File1"
       ##
@@ -40,7 +40,7 @@ Feature: Multiple hook files with a glob
       #def before(transaction):
       #    print("It's me, File1")
       """
-    And a file named "hookfile2.{{myextension}}" with:
+    And a file named "hookfile2.{{my-extension}}" with:
       """
       ## Implement before hook writing to standard output text: "It's me, File2"
       ##
@@ -52,7 +52,7 @@ Feature: Multiple hook files with a glob
       #def before(transaction):
       #    print("It's me, File2")
       """
-    And a file named "hookfile_glob.{{myextension}}" with:
+    And a file named "hookfile_glob.{{my-extension}}" with:
       """
       ## Implement before hook writing to standard output text: "It's me, File3"
       ##
@@ -64,7 +64,7 @@ Feature: Multiple hook files with a glob
       #def before(transaction):
       #    print("It's me, File3")
       """
-    When I run `dredd ./apiary.apib http://localhost:4567 --server="node server.js" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile1.{{myextension}} --hookfiles=./hookfile2.{{myextension}} --hookfiles=./hookfile_*.{{myextension}} --loglevel=debug`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server="node server.js" --language="{{my-executable-path}}" --hookfiles=./hookfile1.{{my-extension}} --hookfiles=./hookfile2.{{my-extension}} --hookfiles=./hookfile_*.{{my-extension}} --loglevel=debug`
     Then the exit status should be 0
     And the output should contain:
       """

@@ -9,9 +9,9 @@ const run = require('../cli/run');
 
 function replacePlaceholders(content) {
   return content
-    .replace(/dredd-hooks-\{\{mylanguage\}\}/g, 'dredd-hooks-python')
-    .replace(/import hooks/g, "import dredd_hooks as hooks")
-    .replace(/\.\{\{myextension\}\}/g, '.py');
+    .replace(/\{\{my\-executable\-path\}\}/g, 'dredd-hooks-python')
+    .replace(/import hooks/g, 'import dredd_hooks as hooks')
+    .replace(/\.\{\{my\-extension\}\}/g, '.py');
 }
 
 function uncommentPythonCodeBlocks(content) {
