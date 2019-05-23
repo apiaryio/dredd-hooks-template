@@ -5,7 +5,6 @@ const path = require('path');
 
 const run = require('./run');
 const copyFeatures = require('./copyFeatures');
-const replaceDredd = require('./replaceDredd');
 
 
 PROJECT_DIR = process.cwd();
@@ -16,7 +15,6 @@ FEATURES_DIR = path.join(PROJECT_DIR, 'features');
 STEPS_DIR = path.join(FEATURES_SRC_DIR, 'support');
 
 NODE_BIN = process.execPath;
-DREDD_BIN = path.join(NODE_MODULES_DIR, '.bin', 'dredd');
 CUCUMBER_BIN = path.join(NODE_MODULES_DIR, '.bin', 'cucumber-js');
 
 
@@ -24,14 +22,8 @@ function init() {
   // create a 'features' directory in the project we're initializing
   fs.mkdirSync(FEATURES_DIR);
 
-  // copy '*.feature' files from the template to the project, process each
-  // file so it references the right Dredd executable
-  copyFeatures(FEATURES_SRC_DIR, FEATURES_DIR, ({ basename, content }) => (
-    {
-      basename,
-      content: replaceDredd(content, DREDD_BIN),
-    }
-  ));
+  // copy '*.feature' files from the template to the project
+  copyFeatures(FEATURES_SRC_DIR, FEATURES_DIR);
 }
 
 
@@ -68,12 +60,7 @@ function upgrade() {
   // copy '*.feature' files from the upgraded 'dredd-hooks-template' package
   // to the project, but don't overwrite the existing feature files, add these
   // as new ones, suffixed with the 'dredd-hooks-template' version
-  copyFeatures(FEATURES_SRC_DIR, FEATURES_DIR, ({ basename, content }) => (
-    {
-      basename: `${basename}~${version}`,
-      content: replaceDredd(content, DREDD_BIN),
-    }
-  ));
+  copyFeatures(FEATURES_SRC_DIR, FEATURES_DIR, basename => `${basename}~${version}`);
 }
 
 

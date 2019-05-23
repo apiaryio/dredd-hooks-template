@@ -9,6 +9,8 @@ const which = require('which');
 const kill = require('tree-kill');
 const { Given, When, Then, Before, After } = require('cucumber');
 
+DREDD_BIN = path.join(process.cwd(), 'node_modules', '.bin', 'dredd');
+
 
 Before(function () {
   this.dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dredd-hooks-template-'));
@@ -23,7 +25,10 @@ After(async function () {
 });
 
 
-Given(/^I have "([^"]+)" command installed$/, function (command) {
+Given(/^I have "([^"]+)" command installed$/, function (match) {
+  const command = match === 'dredd'
+    ? DREDD_BIN
+    : match;
   which.sync(command); // throws if the command is not found
 });
 
@@ -36,7 +41,10 @@ Given(/^I set the environment variables to:$/, function (env) {
 });
 
 
-When(/^I run `([^`]+)`$/, function (command) {
+When(/^I run `([^`]+)`$/, function (match) {
+  const command = match.startsWith('dredd ')
+    ? match.replace(/^dredd/, DREDD_BIN)
+    : match;
   this.proc = childProcess.spawnSync(command, [], {
     shell: true,
     cwd: this.dir,
