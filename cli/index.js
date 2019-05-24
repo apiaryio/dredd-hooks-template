@@ -54,8 +54,8 @@ function upgrade() {
   }
 
   // upgrade the package
-  const package = `dredd-hooks-template@${version}`;
-  run('npm', ['install', package, '--save-dev'], { cwd: PROJECT_DIR });
+  const pkg = `dredd-hooks-template@${version}`;
+  run('npm', ['install', pkg, '--save-dev'], { cwd: PROJECT_DIR });
 
   // copy '*.feature' files from the upgraded 'dredd-hooks-template' package
   // to the project, but don't overwrite the existing feature files, add these
