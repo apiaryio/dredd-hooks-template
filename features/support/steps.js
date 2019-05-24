@@ -9,7 +9,7 @@ const which = require('which');
 const kill = require('tree-kill');
 const { Given, When, Then, Before, After } = require('cucumber');
 
-DREDD_BIN = path.join(process.cwd(), 'node_modules', '.bin', 'dredd');
+const DREDD_BIN = path.join(process.cwd(), 'node_modules', '.bin', 'dredd');
 
 
 Before(function () {

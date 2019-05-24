@@ -7,15 +7,15 @@ const run = require('./run');
 const copyFeatures = require('./copyFeatures');
 
 
-PROJECT_DIR = process.cwd();
-NODE_MODULES_DIR = path.join(PROJECT_DIR, 'node_modules');
+const PROJECT_DIR = process.cwd();
+const NODE_MODULES_DIR = path.join(PROJECT_DIR, 'node_modules');
 
-FEATURES_SRC_DIR = path.join(NODE_MODULES_DIR, 'dredd-hooks-template', 'features');
-FEATURES_DIR = path.join(PROJECT_DIR, 'features');
-STEPS_DIR = path.join(FEATURES_SRC_DIR, 'support');
+const FEATURES_SRC_DIR = path.join(NODE_MODULES_DIR, 'dredd-hooks-template', 'features');
+const FEATURES_DIR = path.join(PROJECT_DIR, 'features');
+const STEPS_DIR = path.join(FEATURES_SRC_DIR, 'support');
 
-NODE_BIN = process.execPath;
-CUCUMBER_BIN = path.join(NODE_MODULES_DIR, '.bin', 'cucumber-js');
+const NODE_BIN = process.execPath;
+const CUCUMBER_BIN = path.join(NODE_MODULES_DIR, '.bin', 'cucumber-js');
 
 
 function init() {
