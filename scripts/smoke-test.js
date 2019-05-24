@@ -22,7 +22,7 @@ function uncommentPythonCodeBlocks(content) {
     .split(/\r?\n/)
     .map((line) => {
       if (insidePythonCodeBlock) {
-        line = line.replace(/^ {6}#/, '      ');
+        line = line.replace(/^ {6}#/, '      '); // eslint-disable-line no-param-reassign
         quotationMarksSeen += /^ {6}"""/.test(line) ? 1 : 0;
         insidePythonCodeBlock = quotationMarksSeen < 2;
       } else {
