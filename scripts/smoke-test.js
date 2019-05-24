@@ -22,8 +22,8 @@ function uncommentPythonCodeBlocks(content) {
     .split(/\r?\n/)
     .map((line) => {
       if (insidePythonCodeBlock) {
-        line = line.replace(/^      #/, '      ');
-        quotationMarksSeen += /^      """/.test(line) ? 1 : 0;
+        line = line.replace(/^ {6}#/, '      ');
+        quotationMarksSeen += /^ {6}"""/.test(line) ? 1 : 0;
         insidePythonCodeBlock = quotationMarksSeen < 2;
       } else {
         quotationMarksSeen = 0;
