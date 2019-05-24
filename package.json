@@ -26,7 +26,7 @@
   },
   "scripts": {
     "test": "node scripts/smoke-test.js",
-    "lint": "gherkin-lint features/",
+    "lint": "eslint . && gherkin-lint features/",
     "release": "semantic-release"
   },
   "repository": {
