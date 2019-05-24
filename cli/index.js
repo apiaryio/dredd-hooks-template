@@ -49,7 +49,7 @@ function upgrade() {
 
   // halt in case the project already depends on the latest version
   if (currentVersion === version) {
-    console.log(`The test suite template is up to date!`);
+    console.log('The test suite template is up to date!');
     return;
   }
 
