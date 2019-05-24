@@ -42,9 +42,7 @@ Given(/^I set the environment variables to:$/, function (env) {
 
 
 When(/^I run `([^`]+)`$/, function (match) {
-  const command = match.startsWith('dredd ')
-    ? match.replace(/^dredd/, DREDD_BIN)
-    : match;
+  const command = match.replace(/^dredd(?= )/, DREDD_BIN);
   this.proc = childProcess.spawnSync(command, [], {
     shell: true,
     cwd: this.dir,
