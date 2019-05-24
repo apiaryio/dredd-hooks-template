@@ -7,7 +7,14 @@ const fs = require('fs-extra');
 const net = require('net');
 const which = require('which');
 const kill = require('tree-kill');
-const { Given, When, Then, Before, After } = require('cucumber');
+const {
+  Given,
+  When,
+  Then,
+  Before,
+  After,
+} = require('cucumber');
+
 
 const DREDD_BIN = path.join(process.cwd(), 'node_modules', '.bin', 'dredd');
 
@@ -59,7 +66,7 @@ When(/^I run `([^`]+)` interactively$/, function step(command) {
 });
 
 When('I wait for output to contain {string}', function step(output, callback) {
-  const proc = this.proc;
+  const { proc } = this;
 
   function read(data) {
     if (data.toString().includes(output)) {
