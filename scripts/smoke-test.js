@@ -28,7 +28,7 @@ function uncommentPythonCodeBlocks(content) {
       } else {
         quotationMarksSeen = 0;
         insidePythonCodeBlock = /(Given|And) a file named ".+\.py"/i.test(line);
-      };
+      }
       return line;
     })
     .join('\n');

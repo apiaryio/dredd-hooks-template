@@ -80,6 +80,6 @@ if (process.argv.length > 3) {
   } else {
     process.exitCode = 1;
     console.error('Available commands: init, test, upgrade');
-    console.error('See https://github.com/apiaryio/dredd-hooks-template README')
+    console.error('See https://github.com/apiaryio/dredd-hooks-template README');
   }
 }
