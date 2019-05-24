@@ -1,7 +1,7 @@
 Feature: Failing a transaction
 
   Background:
-    Given I have "dredd-hooks-{{mylanguage}}" command installed
+    Given I have "{{my-executable-path}}" command installed
     And I have "dredd" command installed
     And a file named "server.js" with:
       """
@@ -28,7 +28,7 @@ Feature: Failing a transaction
       """
 
   Scenario:
-    Given a file named "hookfile.{{myextension}}" with:
+    Given a file named "hookfile.{{my-extension}}" with:
       """
       ## Implement before hook failing the transaction by setting string 'Yay! Failed!' as value of key 'fail'
       ## in the transaction object
@@ -41,7 +41,7 @@ Feature: Failing a transaction
       #def before(transaction):
       #    transaction['fail'] = 'Yay! Failed!'
       """
-    When I run `dredd ./apiary.apib http://localhost:4567 --server="node server.js" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile.{{myextension}} --loglevel=debug`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server="node server.js" --language="{{my-executable-path}}" --hookfiles=./hookfile.{{my-extension}} --loglevel=debug`
     Then the exit status should be 1
     And the output should contain:
       """

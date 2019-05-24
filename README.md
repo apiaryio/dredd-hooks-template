@@ -22,8 +22,8 @@ To use the test suite, first read the docs about [how to create a new hooks hand
 1.  Run `npx dredd-hooks-template init` to get a copy of the test suite in the `./features` directory.
 1.  Open the feature files in `./features/*.feature` and in all of them
 
-    -   replace `dredd-hooks-{{mylanguage}}` with a path to your hooks handler executable which you want to get tested (e.g. `./bin/dredd_hooks`)
-    -   replace `{{myextension}}` by the extension of the hooks handler language (e.g. `.py`),
+    -   replace `{{my-executable-path}}` with a path to your hooks handler executable which you want to get tested (e.g. `./bin/dredd_hooks`)
+    -   replace `{{my-extension}}` by the extension of the hooks handler language (e.g. `.py`),
     -   uncomment the code blocks and rewrite them to the hooks handler language.
 
 Now you have the test suite ready.

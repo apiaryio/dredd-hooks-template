@@ -1,7 +1,7 @@
 Feature: Hook handlers
 
   Background:
-    Given I have "dredd-hooks-{{mylanguage}}" command installed
+    Given I have "{{my-executable-path}}" command installed
     And I have "dredd" command installed
     And a file named "server.js" with:
       """
@@ -28,7 +28,7 @@ Feature: Hook handlers
       """
 
   Scenario:
-    Given a file named "hookfile.{{myextension}}" with:
+    Given a file named "hookfile.{{my-extension}}" with:
       """
       ## Implement following in your language utilizing each hook declaring function
       ## from API in your language:
@@ -71,7 +71,7 @@ Feature: Hook handlers
       #    print('after each hook handled')
       """
 
-    When I run `dredd ./apiary.apib http://localhost:4567 --server="node server.js" --language="dredd-hooks-{{mylanguage}}" --hookfiles=./hookfile.{{myextension}} --loglevel=debug`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server="node server.js" --language="{{my-executable-path}}" --hookfiles=./hookfile.{{my-extension}} --loglevel=debug`
     Then the exit status should be 0
     And the output should contain:
       """
