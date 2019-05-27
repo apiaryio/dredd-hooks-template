@@ -11,7 +11,7 @@
   "dependencies": {
     "chai": "4.2.0",
     "cucumber": "5.1.0",
-    "dredd": "11.1.4",
+    "dredd": "11.2.0",
     "fs-extra": "8.0.1",
     "glob": "7.1.4",
     "tree-kill": "1.2.1",
