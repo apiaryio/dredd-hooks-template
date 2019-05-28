@@ -1,8 +1,7 @@
 Feature: Hook handlers
 
   Background:
-    Given I have "{{my-executable-path}}" command installed
-    And I have "dredd" command installed
+    Given I have Dredd installed
     And a file named "server.js" with:
       """
       require('http')

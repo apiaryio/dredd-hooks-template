@@ -32,11 +32,8 @@ After(async function hook() {
 });
 
 
-Given(/^I have "([^"]+)" command installed$/, (match) => {
-  const command = match === 'dredd'
-    ? DREDD_BIN
-    : match;
-  which.sync(command); // throws if the command is not found
+Given('I have Dredd installed', () => {
+  which.sync(DREDD_BIN); // throws if not found
 });
 
 Given(/^a file named "([^"]+)" with:$/, function step(filename, content) {
@@ -48,9 +45,8 @@ Given(/^I set the environment variables to:$/, function step(env) {
 });
 
 
-When(/^I run `([^`]+)`$/, function step(match) {
-  const command = match.replace(/^dredd(?= )/, DREDD_BIN);
-  this.proc = childProcess.spawnSync(command, [], {
+When(/^I run `dredd ([^`]+)`$/, function step(args) {
+  this.proc = childProcess.spawnSync(`${DREDD_BIN} ${args}`, [], {
     shell: true,
     cwd: this.dir,
     env: this.env,
