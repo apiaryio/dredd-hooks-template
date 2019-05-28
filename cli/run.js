@@ -7,7 +7,7 @@ const { spawnSync } = require('child_process');
  */
 module.exports = function run(command, args, options) {
   const proc = spawnSync(command, args, { ...options, stdio: 'inherit' });
-  if (proc.error) throw error;
+  if (proc.error) throw proc.error;
   if (proc.status) throw new Error(`'${[command].concat(args).join(' ')}' failed`);
   return proc;
 };

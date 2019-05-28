@@ -9,9 +9,9 @@ const run = require('../cli/run');
 
 function replacePlaceholders(content) {
   return content
-    .replace(/\{\{my\-executable\-path\}\}/g, 'dredd-hooks-python')
+    .replace(/\{\{my-executable-path\}\}/g, 'dredd-hooks-python')
     .replace(/import hooks/g, 'import dredd_hooks as hooks')
-    .replace(/\.\{\{my\-extension\}\}/g, '.py');
+    .replace(/\.\{\{my-extension\}\}/g, '.py');
 }
 
 function uncommentPythonCodeBlocks(content) {
@@ -22,13 +22,13 @@ function uncommentPythonCodeBlocks(content) {
     .split(/\r?\n/)
     .map((line) => {
       if (insidePythonCodeBlock) {
-        line = line.replace(/^      \#/, '      ');
-        quotationMarksSeen += /^      """/.test(line) ? 1 : 0;
+        line = line.replace(/^ {6}#/, '      '); // eslint-disable-line no-param-reassign
+        quotationMarksSeen += /^ {6}"""/.test(line) ? 1 : 0;
         insidePythonCodeBlock = quotationMarksSeen < 2;
       } else {
         quotationMarksSeen = 0;
         insidePythonCodeBlock = /(Given|And) a file named ".+\.py"/i.test(line);
-      };
+      }
       return line;
     })
     .join('\n');

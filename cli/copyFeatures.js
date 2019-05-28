@@ -15,4 +15,4 @@ module.exports = function copyFeatures(srcDir, dstDir, transformBasename = basen
     const featurePath = path.join(dstDir, transformBasename(featureBasename));
     fs.writeFileSync(featurePath, featureContent, { encoding: 'utf-8' });
   });
-}
+};

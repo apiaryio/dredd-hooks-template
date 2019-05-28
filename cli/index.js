@@ -7,15 +7,15 @@ const run = require('./run');
 const copyFeatures = require('./copyFeatures');
 
 
-PROJECT_DIR = process.cwd();
-NODE_MODULES_DIR = path.join(PROJECT_DIR, 'node_modules');
+const PROJECT_DIR = process.cwd();
+const NODE_MODULES_DIR = path.join(PROJECT_DIR, 'node_modules');
 
-FEATURES_SRC_DIR = path.join(NODE_MODULES_DIR, 'dredd-hooks-template', 'features');
-FEATURES_DIR = path.join(PROJECT_DIR, 'features');
-STEPS_DIR = path.join(FEATURES_SRC_DIR, 'support');
+const FEATURES_SRC_DIR = path.join(NODE_MODULES_DIR, 'dredd-hooks-template', 'features');
+const FEATURES_DIR = path.join(PROJECT_DIR, 'features');
+const STEPS_DIR = path.join(FEATURES_SRC_DIR, 'support');
 
-NODE_BIN = process.execPath;
-CUCUMBER_BIN = path.join(NODE_MODULES_DIR, '.bin', 'cucumber-js');
+const NODE_BIN = process.execPath;
+const CUCUMBER_BIN = path.join(NODE_MODULES_DIR, '.bin', 'cucumber-js');
 
 
 function init() {
@@ -49,13 +49,13 @@ function upgrade() {
 
   // halt in case the project already depends on the latest version
   if (currentVersion === version) {
-    console.log(`The test suite template is up to date!`);
+    console.log('The test suite template is up to date!');
     return;
   }
 
   // upgrade the package
-  const package = `dredd-hooks-template@${version}`;
-  run('npm', ['install', package, '--save-dev'], { cwd: PROJECT_DIR });
+  const pkg = `dredd-hooks-template@${version}`;
+  run('npm', ['install', pkg, '--save-dev'], { cwd: PROJECT_DIR });
 
   // copy '*.feature' files from the upgraded 'dredd-hooks-template' package
   // to the project, but don't overwrite the existing feature files, add these
@@ -80,6 +80,6 @@ if (process.argv.length > 3) {
   } else {
     process.exitCode = 1;
     console.error('Available commands: init, test, upgrade');
-    console.error('See https://github.com/apiaryio/dredd-hooks-template README')
+    console.error('See https://github.com/apiaryio/dredd-hooks-template README');
   }
 }
