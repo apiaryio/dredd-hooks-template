@@ -46,3 +46,6 @@ workflows:
           requires:
             - lint
             - test-with-python-hooks
+          filters:
+            branches:
+              only: master
