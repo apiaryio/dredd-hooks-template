@@ -16,13 +16,10 @@ const {
 } = require('cucumber');
 
 
-const DREDD_BIN = path.join(process.cwd(), 'node_modules', '.bin', 'dredd');
-
-
 Before(function hook() {
   this.dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dredd-hooks-template-'));
+  this.dreddBin = path.join(process.cwd(), 'node_modules', '.bin', 'dredd');
   this.env = { ...process.env };
-  this.commands = [];
   this.dataSent = '';
 });
 
@@ -32,8 +29,8 @@ After(async function hook() {
 });
 
 
-Given('I have Dredd installed', () => {
-  which.sync(DREDD_BIN); // throws if not found
+Given('I have Dredd installed', function step() {
+  which.sync(this.dreddBin); // throws if not found
 });
 
 Given(/^a file named "([^"]+)" with:$/, function step(filename, content) {
@@ -46,7 +43,7 @@ Given(/^I set the environment variables to:$/, function step(env) {
 
 
 When(/^I run `dredd ([^`]+)`$/, function step(args) {
-  this.proc = childProcess.spawnSync(`${DREDD_BIN} ${args}`, [], {
+  this.proc = childProcess.spawnSync(`${this.dreddBin} ${args}`, [], {
     shell: true,
     cwd: this.dir,
     env: this.env,
