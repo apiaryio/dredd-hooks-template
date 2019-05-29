@@ -35,6 +35,12 @@ function uncommentPythonCodeBlocks(content) {
     .join('\n');
 }
 
+// https://en.wikipedia.org/wiki/Shebang_(Unix)
+function parseShebang(contents) {
+  const shebang = contents.toString().split(/[\r\n]+/)[0];
+  return shebang.replace(/^#!/, '');
+}
+
 
 // create a temporary directory and init an npm package there
 const testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dredd-hooks-template-test-'));
@@ -58,10 +64,10 @@ run('npx', ['dredd-hooks-template', 'init'], { cwd: testDir });
 //
 // (instead of 'dredd-hooks-python', the handler command is going to be
 // something like '../…/bin/python ../…/bin/dredd-hooks-python')
-const relativePathBase = path.join(testDir, 'package.json');
-const pythonPath = path.relative(relativePathBase, which.sync('python'));
-const executablePath = path.relative(relativePathBase, which.sync('dredd-hooks-python'));
-const handlerCommand = `${pythonPath} ${executablePath}`;
+const executablePath = which.sync('dredd-hooks-python');
+const pythonPath = parseShebang(fs.readFileSync(executablePath));
+const relativeBase = path.join(testDir, 'package.json');
+const handlerCommand = `${path.relative(relativeBase, pythonPath)} ${path.relative(relativeBase, executablePath)}`;
 
 // make custom changes to the '*.feature' files so they're able to test
 // the Python hooks (reference implementation)
