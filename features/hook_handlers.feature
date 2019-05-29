@@ -2,21 +2,6 @@ Feature: Hook handlers
 
   Background:
     Given I have Dredd installed
-    And a file named "server.js" with:
-      """
-      require('http')
-        .createServer((req, res) => {
-          if (req.url === '/message') {
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end('Hello World!\n');
-          } else {
-            res.writeHead(500);
-            res.end();
-          }
-        })
-        .listen(4567);
-      """
-
     And a file named "apiary.apib" with:
       """
       # My Api
@@ -25,6 +10,7 @@ Feature: Hook handlers
 
               Hello World!
       """
+    And a file "server.js" with a server responding on "http://localhost:4567/message" with "Hello World!"
 
   Scenario:
     Given a file named "hookfile.{{my-extension}}" with:

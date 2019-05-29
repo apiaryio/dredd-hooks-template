@@ -5,6 +5,7 @@ const childProcess = require('child_process');
 const { expect } = require('chai');
 const fs = require('fs-extra');
 const net = require('net');
+const url = require('url');
 const which = require('which');
 const kill = require('tree-kill');
 const {
@@ -33,11 +34,29 @@ Given('I have Dredd installed', function step() {
   which.sync(this.dreddBin); // throws if not found
 });
 
-Given(/^a file named "([^"]+)" with:$/, function step(filename, content) {
+Given('a file {string} with a server responding on {string} with {string}', function step(filename, fullURL, body) {
+  const urlParts = url.parse(fullURL);
+  const content = `
+require('http')
+  .createServer((req, res) => {
+    if (req.url === '${urlParts.path}') {
+      res.writeHead(200, { 'Content-Type': 'text/plain' });
+      res.end('${body}\\n');
+    } else {
+      res.writeHead(500);
+      res.end();
+    }
+  })
+  .listen(${urlParts.port});
+`;
   fs.writeFileSync(path.join(this.dir, filename), content);
 });
 
-Given(/^I set the environment variables to:$/, function step(env) {
+Given('a file named {string} with:', function step(filename, content) {
+  fs.writeFileSync(path.join(this.dir, filename), content);
+});
+
+Given('I set the environment variables to:', function step(env) {
   this.env = { ...this.env, ...env.rowsHash() };
 });
 

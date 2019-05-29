@@ -2,21 +2,6 @@ Feature: Multiple hook files with a glob
 
   Background:
     Given I have Dredd installed
-    And a file named "server.js" with:
-      """
-      require('http')
-        .createServer((req, res) => {
-          if (req.url === '/message') {
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end('Hello World!\n');
-          } else {
-            res.writeHead(500);
-            res.end();
-          }
-        })
-        .listen(4567);
-      """
-
     And a file named "apiary.apib" with:
       """
       # My Api
@@ -25,6 +10,7 @@ Feature: Multiple hook files with a glob
 
               Hello World!
       """
+    And a file "server.js" with a server responding on "http://localhost:4567/message" with "Hello World!"
 
   Scenario:
     Given a file named "hookfile1.{{my-extension}}" with:
