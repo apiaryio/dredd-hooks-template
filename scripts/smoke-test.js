@@ -42,6 +42,10 @@ function parseShebang(contents) {
 }
 
 
+/* ****************************************************************************
+  SET UP
+**************************************************************************** */
+
 // create a temporary directory and init an npm package there
 const testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dredd-hooks-template-test-'));
 run('npm', ['init', '--yes'], { cwd: testDir });
@@ -53,6 +57,11 @@ run('npm', ['pack'], { cwd: projectDir });
 const tgzBasename = `${packageData.name}-${packageData.version}.tgz`;
 const tgzPath = path.join(projectDir, tgzBasename);
 run('npm', ['install', tgzPath, '--save-dev'], { cwd: testDir });
+
+
+/* ****************************************************************************
+  INITIALIZE & TEST
+**************************************************************************** */
 
 // initialize the test suite template
 run('npx', ['dredd-hooks-template', 'init'], { cwd: testDir });
@@ -79,6 +88,40 @@ glob.sync(path.join(testDir, '**/*.feature')).forEach((featurePath) => {
 
 // run 'dredd-hooks-template test', should pass
 run('npx', ['dredd-hooks-template', 'test'], { cwd: testDir });
+
+
+/* ****************************************************************************
+  UPGRADE
+**************************************************************************** */
+
+// pretend 'dredd-hooks-template' is in one of the previous versions
+const projectPackagePath = path.join(testDir, 'package.json');
+const projectPackageData = fs.readJSONSync(projectPackagePath);
+projectPackageData.devDependencies['dredd-hooks-template'] = '1.0.0';
+fs.writeJSONSync(projectPackagePath, projectPackageData);
+
+// run 'dredd-hooks-template upgrade'
+const output = run('npx', ['dredd-hooks-template', 'upgrade'], {
+  cwd: testDir,
+  stdio: 'pipe',
+}).stdout.toString();
+
+// the upgrade output should contain hints
+const containsHint = output.includes('copied') && output.includes('suffixed') && output.includes('manually');
+if (!containsHint) throw new Error("Output of 'dredd-hooks-template upgrade' doesn't include hint text");
+
+// the upgrade output should contain a link to the relevant GitHub diff
+const containsLink = output.includes('https://github.com/apiaryio/dredd-hooks-template/compare/v1.0.0...');
+if (!containsLink) throw new Error("Output of 'dredd-hooks-template upgrade' doesn't include link to GitHub");
+
+// the upgrade should copy the newest files over with suffixed extensions
+const filesCopied = glob.sync(path.join(testDir, '**/*.feature~v*')).length;
+if (!filesCopied) throw new Error("Running 'dredd-hooks-template upgrade' didn't copy feature files");
+
+
+/* ****************************************************************************
+  TEAR DOWN
+**************************************************************************** */
 
 // cleanup (intentionally doesn't cleanup on exception, as then one can 'cd'
 // to the temporary directory and play with it to debug problems)

@@ -39,12 +39,15 @@ function upgrade() {
   // read the project's package.json and get currently installed version
   // of the 'dredd-hooks-template' package
   const packageDataPath = path.join(PROJECT_DIR, 'package.json');
-  const packageData = JSON.parse(fs.readFileSync(packageDataPath, { encoding: 'utf-8' }));
+  const packageData = JSON.parse(fs.readFileSync(packageDataPath, 'utf-8'));
   const currentVersion = packageData.devDependencies['dredd-hooks-template'];
 
   // ask npm about the latest published version of the 'dredd-hooks-template'
   // package
-  const proc = run('npm', ['view', 'dredd-hooks-template', 'version'], { cwd: PROJECT_DIR });
+  const proc = run('npm', ['view', 'dredd-hooks-template', 'version'], {
+    cwd: PROJECT_DIR,
+    stdio: 'pipe',
+  });
   const version = proc.stdout.toString().trim();
 
   // halt in case the project already depends on the latest version
@@ -60,7 +63,17 @@ function upgrade() {
   // copy '*.feature' files from the upgraded 'dredd-hooks-template' package
   // to the project, but don't overwrite the existing feature files, add these
   // as new ones, suffixed with the 'dredd-hooks-template' version
-  copyFeatures(FEATURES_SRC_DIR, FEATURES_DIR, basename => `${basename}~${version}`);
+  copyFeatures(FEATURES_SRC_DIR, FEATURES_DIR, basename => `${basename}~v${version}`);
+
+  // inform user about what has just happened and what's the next step
+  console.log(`\
+The test suite template has been upgraded. New feature files have been copied
+to the 'features' directory, suffixed with '~v${version}'. Please go through
+them manually and update your test suite with the latest changes. Seeing the
+changes on GitHub might help as well:
+
+https://github.com/apiaryio/dredd-hooks-template/compare/v${currentVersion}...v${version}
+`);
 }
 
 
