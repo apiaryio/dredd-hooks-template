@@ -2,14 +2,15 @@ const os = require('os');
 const fs = require('fs-extra');
 const path = require('path');
 const glob = require('glob');
+const which = require('which');
 
 const packageData = require('../package');
 const run = require('../cli/run');
 
 
-function replacePlaceholders(content) {
+function replacePlaceholders(content, handlerCommand = 'dredd-hooks-python') {
   return content
-    .replace(/\{\{my-executable-path\}\}/g, 'dredd-hooks-python')
+    .replace(/\{\{my-executable-path\}\}/g, handlerCommand)
     .replace(/import hooks/g, 'import dredd_hooks as hooks')
     .replace(/\.\{\{my-extension\}\}/g, '.py');
 }
@@ -34,6 +35,12 @@ function uncommentPythonCodeBlocks(content) {
     .join('\n');
 }
 
+// https://en.wikipedia.org/wiki/Shebang_(Unix)
+function parseShebang(contents) {
+  const shebang = contents.toString().split(/[\r\n]+/)[0];
+  return shebang.replace(/^#!/, '');
+}
+
 
 // create a temporary directory and init an npm package there
 const testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dredd-hooks-template-test-'));
@@ -50,11 +57,23 @@ run('npm', ['install', tgzPath, '--save-dev'], { cwd: testDir });
 // initialize the test suite template
 run('npx', ['dredd-hooks-template', 'init'], { cwd: testDir });
 
+// find out what is the relative path to the Python hooks executable so
+// we can use it in the test suite (with Python hooks this is not necessary,
+// plain 'dredd-hooks-python' would work fine, but we want to test here that
+// relative paths and complex commands work with the test suite)
+//
+// (instead of 'dredd-hooks-python', the handler command is going to be
+// something like '../…/bin/python ../…/bin/dredd-hooks-python')
+const executablePath = which.sync('dredd-hooks-python');
+const pythonPath = parseShebang(fs.readFileSync(executablePath));
+const relativeBase = path.join(testDir, 'package.json');
+const handlerCommand = `${path.relative(relativeBase, pythonPath)} ${path.relative(relativeBase, executablePath)}`;
+
 // make custom changes to the '*.feature' files so they're able to test
 // the Python hooks (reference implementation)
 glob.sync(path.join(testDir, '**/*.feature')).forEach((featurePath) => {
   const content = fs.readFileSync(featurePath, { encoding: 'utf-8' });
-  const modifiedContent = uncommentPythonCodeBlocks(replacePlaceholders(content));
+  const modifiedContent = uncommentPythonCodeBlocks(replacePlaceholders(content, handlerCommand));
   fs.writeFileSync(featurePath, modifiedContent, { encoding: 'utf-8' });
 });
 
