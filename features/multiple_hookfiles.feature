@@ -2,7 +2,6 @@ Feature: Multiple hook files with a glob
 
   Background:
     Given I have Dredd installed
-    And a file "server.js" with a server responding on "http://localhost:4567/message" with "Hello World!"
     And a file named "apiary.apib" with:
       """
       # My Api
@@ -11,6 +10,7 @@ Feature: Multiple hook files with a glob
 
               Hello World!
       """
+    And a file "server.js" with a server responding on "http://localhost:4567/message" with "Hello World!"
 
   Scenario:
     Given a file named "hookfile1.{{my-extension}}" with:

@@ -2,7 +2,6 @@ Feature: Failing a transaction
 
   Background:
     Given I have Dredd installed
-    And a file "server.js" with a server responding on "http://localhost:4567/message" with "Hello World!"
     And a file named "apiary.apib" with:
       """
       # My Api
@@ -11,6 +10,7 @@ Feature: Failing a transaction
 
               Hello World!
       """
+    And a file "server.js" with a server responding on "http://localhost:4567/message" with "Hello World!"
 
   Scenario:
     Given a file named "hookfile.{{my-extension}}" with:
