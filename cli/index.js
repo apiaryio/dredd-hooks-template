@@ -39,7 +39,7 @@ function upgrade() {
   // read the project's package.json and get currently installed version
   // of the 'dredd-hooks-template' package
   const packageDataPath = path.join(PROJECT_DIR, 'package.json');
-  const packageData = JSON.parse(fs.readFileSync(packageDataPath, 'utf-8'));
+  const packageData = JSON.parse(fs.readFileSync(packageDataPath, 'utf8'));
   const currentVersion = packageData.devDependencies['dredd-hooks-template'];
 
   // ask npm about the latest published version of the 'dredd-hooks-template'

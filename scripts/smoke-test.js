@@ -81,9 +81,9 @@ const handlerCommand = `${path.relative(relativeBase, pythonPath)} ${path.relati
 // make custom changes to the '*.feature' files so they're able to test
 // the Python hooks (reference implementation)
 glob.sync(path.join(testDir, '**/*.feature')).forEach((featurePath) => {
-  const content = fs.readFileSync(featurePath, { encoding: 'utf-8' });
+  const content = fs.readFileSync(featurePath, 'utf8');
   const modifiedContent = uncommentPythonCodeBlocks(replacePlaceholders(content, handlerCommand));
-  fs.writeFileSync(featurePath, modifiedContent, { encoding: 'utf-8' });
+  fs.writeFileSync(featurePath, modifiedContent, 'utf8');
 });
 
 // run 'dredd-hooks-template test', should pass
