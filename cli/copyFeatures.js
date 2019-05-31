@@ -10,9 +10,9 @@ const glob = require('glob');
  */
 module.exports = function copyFeatures(srcDir, dstDir, transformBasename = basename => basename) {
   glob.sync(path.join(srcDir, '*.feature')).forEach((featureSrcPath) => {
-    const featureContent = fs.readFileSync(featureSrcPath, { encoding: 'utf-8' });
+    const featureContent = fs.readFileSync(featureSrcPath, 'utf8');
     const featureBasename = path.basename(featureSrcPath);
     const featurePath = path.join(dstDir, transformBasename(featureBasename));
-    fs.writeFileSync(featurePath, featureContent, { encoding: 'utf-8' });
+    fs.writeFileSync(featurePath, featureContent, 'utf8');
   });
 };
