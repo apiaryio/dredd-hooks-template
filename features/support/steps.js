@@ -7,7 +7,7 @@ const fs = require('fs-extra');
 const net = require('net');
 const url = require('url');
 const which = require('which');
-const kill = require('tree-kill');
+const pidtree = require('pidtree');
 const {
   Given,
   When,
@@ -25,8 +25,24 @@ Before(function hook() {
 });
 
 After(async function hook() {
-  fs.remove(this.dir);
-  await util.promisify(kill)(this.proc.pid);
+  // kill all running processes
+  const pids = [];
+  try {
+    pids.push(...await pidtree(this.proc.pid));
+  } catch (error) {
+    // the process doesn't exist anymore
+  }
+  pids.forEach((pid) => {
+    try {
+      process.kill(pid, 'SIGKILL');
+    } catch (error) {
+      // re-throw except in case it is 'ESRCH' (process cannot be found)
+      if (error.code !== 'ESRCH') throw error;
+    }
+  });
+
+  // remove the temporary directory
+  return fs.remove(this.dir);
 });
 
 
