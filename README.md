@@ -18,7 +18,7 @@ To use the test suite, first read the docs about [how to create a new hooks hand
     }
     ```
 
-1.  Run `npm install dredd-hooks-template --save-dev` to install and declare this test suite as your development dependency.
+1.  Run `npm install dredd-hooks-template --save-dev --save-exact` to install and declare this test suite as your development dependency.
 1.  Run `npx dredd-hooks-template init` to get a copy of the test suite in the `./features` directory.
 1.  Open the feature files in `./features/*.feature` and in all of them
 
