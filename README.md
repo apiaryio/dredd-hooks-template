@@ -1,6 +1,6 @@
 # Cross-Language Test Suite for Dredd Hooks Handlers
 
-[![Build Status](https://travis-ci.org/apiaryio/dredd-hooks-template.svg?branch=master)](https://travis-ci.org/apiaryio/dredd-hooks-template)
+[![Build Status](https://travis-ci.org/apiaryio/dredd-hooks-template.svg?branch=master)](https://travis-ci.org/apiaryio/dredd-hooks-template) [![Greenkeeper badge](https://badges.greenkeeper.io/apiaryio/dredd-hooks-template.svg)](https://greenkeeper.io/)
 
 [Dredd](https://dredd.org) is a tool for testing web APIs. It supports [hooks](http://dredd.org/en/latest/hooks/index.html) written in [many languages](http://dredd.org/en/latest/hooks/index.html#supported-languages). To support a particular language, it needs an adapter, so-called hooks handler. This [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) test suite ensures that the public interface of each hooks handler works as Dredd expects. The test suite is written in [Gherkin](https://github.com/cucumber/cucumber/wiki/Gherkin) and uses [Cucumber](https://github.com/cucumber/cucumber-js) as a test runner.
 
