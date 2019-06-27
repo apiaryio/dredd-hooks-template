@@ -1,66 +1,52 @@
-Feature: TCP server and messages
+Feature: TCP server
 
-Scenario: TCP server
-  When I run `{{my-executable-path}}` interactively
-  And I wait for output to contain "Starting"
-  Then it should start listening on localhost port 61321
+  Background:
+    Given I have Dredd installed
+    And a file named "apiary.apib" with:
+      """
+      # My Api
+      ## GET /message
+      + Response 200 (text/plain)
 
-Scenario: Message exchange for event beforeEach
-  Given I run `{{my-executable-path}}` interactively
-  When I wait for output to contain "Starting"
-  And I connect to the server
-  And I send a JSON message to the socket:
-    """
-    {"event": "beforeEach", "uuid": "1234-abcd", "data": {"key":"value"}}
-    """
-  And I send a newline character as a message delimiter to the socket
-  Then I should receive the same response
-  And I should be able to gracefully disconnect
+      Hello World!
+      """
+    And a file "server.js" with a server responding on "http://localhost:4567/message" with "Hello World!"
+    And a file named "hookfile.{{my-extension}}" with:
+      """
+      ## Implement before hook failing the transaction by setting string 'Yay! Failed!' as value of key 'fail'
+      ## in the transaction object
+      ##
+      ## So, replace following pseudo code with yours:
+      #
+      #import hooks
+      #
+      #@hooks.before('/message > GET')
+      #def before(transaction):
+      #    print('All works!')
+      """
 
-Scenario: Message exchange for event beforeEachValidation
-  Given I run `{{my-executable-path}}` interactively
-  When I wait for output to contain "Starting"
-  And I connect to the server
-  And I send a JSON message to the socket:
-    """
-    {"event": "beforeEachValidation", "uuid": "2234-abcd", "data": {"key":"value"}}
-    """
-  And I send a newline character as a message delimiter to the socket
-  Then I should receive the same response
-  And I should be able to gracefully disconnect
+  Scenario: Listening on a default port
+    When I run `{{my-executable-path}}` interactively
+    And I wait for output to contain "Starting"
+    Then it should start listening on 127.0.0.1 port 61321
 
-Scenario: Message exchange for event afterEach
-  Given I run `{{my-executable-path}}` interactively
-  When I wait for output to contain "Starting"
-  And I connect to the server
-  And I send a JSON message to the socket:
-    """
-    {"event": "afterEach", "uuid": "3234-abcd", "data": {"key":"value"}}
-    """
-  And I send a newline character as a message delimiter to the socket
-  Then I should receive the same response
-  And I should be able to gracefully disconnect
+  Scenario: Communicating on a default port
+    When I run `dredd ./apiary.apib http://localhost:4567 --server="node server.js" --language="{{my-executable-path}}" --hookfiles=./hookfile.{{my-extension}} --loglevel=debug`
+    Then the exit status should be 0
+    And the output should contain:
+      """
+      All works!
+      """
 
-Scenario: Message exchange for event beforeAll
-  Given I run `{{my-executable-path}}` interactively
-  When I wait for output to contain "Starting"
-  And I connect to the server
-  And I send a JSON message to the socket:
-    """
-    {"event": "beforeAll", "uuid": "4234-abcd", "data": {"key":"value"}}
-    """
-  And I send a newline character as a message delimiter to the socket
-  Then I should receive the same response
-  And I should be able to gracefully disconnect
+  Scenario: Listening on a custom port
+    When I run `{{my-executable-path}} --port=4242` interactively
+    And I wait for output to contain "Starting"
+    Then it should start listening on 127.0.0.1 port 4242
 
-Scenario: Message exchange for event afterAll
-  Given I run `{{my-executable-path}}` interactively
-  When I wait for output to contain "Starting"
-  And I connect to the server
-  And I send a JSON message to the socket:
-    """
-    {"event": "afterAll", "uuid": "5234-abcd", "data": {"key":"value"}}
-    """
-  And I send a newline character as a message delimiter to the socket
-  Then I should receive the same response
-  And I should be able to gracefully disconnect
+  Scenario: Communicating on a custom port
+    When I run `dredd ./apiary.apib http://localhost:4567 --server="node server.js" --language="{{my-executable-path}}" --hookfiles=./hookfile.{{my-extension}} --hooks-worker-handler-port=4242 --loglevel=debug`
+    Then the exit status should be 0
+    And the output should contain:
+      """
+      All works!
+      """

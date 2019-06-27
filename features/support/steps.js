@@ -132,10 +132,10 @@ Then('the output should contain:', function step(output) {
   expect(this.proc.stdout.toString() + this.proc.stderr.toString()).to.contain(output);
 });
 
-Then('it should start listening on localhost port {int}', async function step(port) {
+Then('it should start listening on {string} port {int}', async function step(host, port) {
   this.socket = new net.Socket();
   const connect = util.promisify(this.socket.connect.bind(this.socket));
-  await connect(port, '127.0.0.1'); // throws if there's an issue
+  await connect(port, host); // throws if there's an issue
   this.socket.end();
 });
 
