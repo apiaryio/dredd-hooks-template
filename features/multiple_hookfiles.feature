@@ -1,4 +1,4 @@
-Feature: Multiple hook files with a glob
+Feature: Multiple hook files
 
   Background:
     Given I have Dredd installed
