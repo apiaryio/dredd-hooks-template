@@ -22,7 +22,7 @@
     "eslint-config-airbnb-base": "13.2.0",
     "eslint-plugin-import": "2.18.2",
     "gherkin-lint": "3.3.6",
-    "semantic-release": "15.13.27"
+    "semantic-release": "15.13.28"
   },
   "scripts": {
     "test": "node scripts/smoke-test.js",
