@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "chai": "4.2.0",
-    "cucumber": "6.0.2",
+    "cucumber": "6.0.3",
     "dredd": "12.1.0",
     "fs-extra": "8.1.0",
     "glob": "7.1.5",
