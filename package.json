@@ -18,7 +18,7 @@
     "which": "2.0.1"
   },
   "devDependencies": {
-    "eslint": "6.6.0",
+    "eslint": "6.7.1",
     "eslint-config-airbnb-base": "13.2.0",
     "eslint-plugin-import": "2.18.2",
     "gherkin-lint": "3.3.6",
