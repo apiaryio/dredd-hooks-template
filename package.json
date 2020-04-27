@@ -14,7 +14,7 @@
     "dredd": "13.0.2",
     "fs-extra": "8.1.0",
     "glob": "7.1.5",
-    "pidtree": "0.3.0",
+    "pidtree": "0.5.0",
     "which": "2.0.1"
   },
   "devDependencies": {
