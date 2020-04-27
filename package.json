@@ -12,7 +12,7 @@
     "chai": "4.2.0",
     "cucumber": "6.0.3",
     "dredd": "13.0.2",
-    "fs-extra": "8.1.0",
+    "fs-extra": "9.0.0",
     "glob": "7.1.5",
     "pidtree": "0.3.0",
     "which": "2.0.1"
