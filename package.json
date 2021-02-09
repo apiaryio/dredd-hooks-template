@@ -15,7 +15,7 @@
     "fs-extra": "8.1.0",
     "glob": "7.1.5",
     "pidtree": "0.3.0",
-    "which": "2.0.1"
+    "which": "2.0.2"
   },
   "devDependencies": {
     "eslint": "6.6.0",
